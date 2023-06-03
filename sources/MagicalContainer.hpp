@@ -2,6 +2,10 @@
 #include "Node.hpp"
 #include <list>
 
+#define Ascending 1
+#define SideCross 2
+#define Prime 3
+
 namespace ariel
 {
     class MagicalContainer
@@ -23,8 +27,7 @@ namespace ariel
 
     public:
         // iterators
-        // class AscendingIterator;
-        // class SideCrossIterator;
+        class Iterator;
 
         MagicalContainer();
         // getters
@@ -40,52 +43,35 @@ namespace ariel
         ~MagicalContainer();
     };
 
-    // class MagicalContainer::AscendingIterator
-    // {
-    // private:
-    //     list<Node *>::iterator it_;
-    //     MagicalContainer &container_;
-    //     // constructor with container & iterator
-    //     AscendingIterator(MagicalContainer &container, list<Node *>::iterator it);
+    // abstract claa
+    class MagicalContainer::Iterator
+    {
+    private:
+        Node *it_;
+        const MagicalContainer &container_;
+        int type_;
 
-    // public:
-    //     // Default constructor
-    //     // AscendingIterator();
+    public:
+        // constructor with container
+        Iterator(const MagicalContainer &container, int type);
+        // Dereference operator (operator*)
+        int operator*() const;
+        // Equality comparison(operator==)
+        bool operator==(const Iterator &otherIt) const;
+        // Inequality comparison(operator!=)
+        bool operator!=(const Iterator &otherIt) const;
+        //  GT, LT comparison (operator>, operatorn<)
+        bool operator<(const Iterator &otherIt) const;
+        bool operator>(const Iterator &otherIt) const;
 
-    //     // Copy constructor
-    //     AscendingIterator(AscendingIterator const &otherAI);
-
-    //     // constructor with container
-    //     AscendingIterator(MagicalContainer &container);
-
-    //     // Destructor
-    //     ~AscendingIterator();
-
-    //     // Assignment operator
-    //     AscendingIterator operator=(AscendingIterator otherAI);
-
-    //     // Equality comparison(operator==)
-    //     bool operator==(AscendingIterator otherAI);
-
-    //     // Inequality comparison(operator!=)
-    //     bool operator!=(AscendingIterator otherAI);
-
-    //     //  GT, LT comparison (operator>, operatorn<)
-    //     bool operator>(AscendingIterator otherAI);
-    //     bool operator<(AscendingIterator otherAI);
-
-    //     // Dereference operator (operator*)
-    //     int operator*() const;
-
-    //     // Pre-increment operator (operator++)
-    //     AscendingIterator &operator++();
-
-    //     // begin(type): Returns the appropriate iterator pointing to the first element of the container
-    //     MagicalContainer::AscendingIterator begin() const;
-
-    //     // end(type): Returns the appropriate iterator pointing to the last element of the container.
-    //     MagicalContainer::AscendingIterator end() const;
-    // };
+        // virtual methods
+        // Pre-increment operator (operator++)
+        virtual Iterator &operator++() = 0;
+        // begin(type): Returns the appropriate iterator pointing to the first element of the container
+        virtual Iterator &begin() const = 0;
+        // end(type): Returns the appropriate iterator pointing to the last element of the container
+        virtual Iterator &end() const = 0;
+    };
 
     // class MagicalContainer::SideCrossIterator
     // {

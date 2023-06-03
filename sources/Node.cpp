@@ -5,15 +5,15 @@ using namespace ariel;
 Node::Node(int data)
     : data_(data), next_(nullptr), prev_(nullptr), nextPrime_(nullptr), prevPrime_(nullptr)
 {
-    this->isPrime_ = checkIsPrime(data);
+    this->isPrime_ = this->checkIsPrime();
 }
 
 // helper function
-bool Node::checkIsPrime(int number)
+bool Node::checkIsPrime()
 {
-    for (int i = 2; i * i <= number; i++)
+    for (int i = 2; i * i <= this->data_; i++)
     {
-        if (number % i == 0)
+        if (this->data_ % i == 0)
             return false;
     }
     return true;

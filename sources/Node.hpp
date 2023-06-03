@@ -16,7 +16,7 @@ namespace ariel
         bool isPrime_;
 
         // helper functions
-        bool checkIsPrime(int number);
+        bool checkIsPrime();
 
     public:
         // constructors
