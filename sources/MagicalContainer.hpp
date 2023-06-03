@@ -71,10 +71,10 @@ namespace ariel
         AscendingIterator &operator++();
 
         // begin(type): Returns the appropriate iterator pointing to the first element of the container
-        MagicalContainer::AscendingIterator &begin() const;
+        MagicalContainer::AscendingIterator begin() const;
 
         // end(type): Returns the appropriate iterator pointing to the last element of the container.
-        MagicalContainer::AscendingIterator &end() const;
+        MagicalContainer::AscendingIterator end() const;
     };
 
 }

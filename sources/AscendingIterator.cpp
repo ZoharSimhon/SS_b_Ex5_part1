@@ -47,8 +47,20 @@ bool MagicalContainer::AscendingIterator::operator!=(AscendingIterator otherAI)
 }
 
 //  GT, LT comparison (operator>, operatorn<)
-bool MagicalContainer::AscendingIterator::operator>(AscendingIterator otherAI) { return true; }
-bool MagicalContainer::AscendingIterator::operator<(AscendingIterator otherAI) { return true; }
+bool MagicalContainer::AscendingIterator::operator>(AscendingIterator otherAI)
+{
+    if (&this->container_ != &otherAI.container_)
+        throw runtime_error("Can't compare iterators from different containers");
+
+    if ((*this->it_)->getData() > (*otherAI.it_)->getData())
+        return true;
+
+    return false;
+}
+bool MagicalContainer::AscendingIterator::operator<(AscendingIterator otherAI)
+{
+    return !(*this > otherAI || *this == otherAI);
+}
 
 // Dereference operator (operator*)
 int MagicalContainer::AscendingIterator::operator*() const
@@ -64,16 +76,19 @@ MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::operat
 }
 
 // begin(type): Returns the appropriate iterator pointing to the first element of the container
-MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::begin() const
+MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::begin() const
 {
-    MagicalContainer::AscendingIterator *beginIter = new MagicalContainer::AscendingIterator(this->container_);
-    return *beginIter;
+    // AscendingIterator *beginIter = new AscendingIterator(this->container_);
+    // return *beginIter;
+
+    return AscendingIterator(this->container_);
 }
 
 // end(type): Returns the appropriate iterator pointing to the last element of the container.
-MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::end() const
+MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::end() const
 {
-    MagicalContainer::AscendingIterator *endIter =
-        new MagicalContainer::AscendingIterator(this->container_, this->container_.getEnd());
-    return *endIter;
+    // MagicalContainer::AscendingIterator *endIter =
+    //     new MagicalContainer::AscendingIterator(this->container_, this->container_.getEnd());
+    // return *endIter;
+    return AscendingIterator(this->container_, this->container_.getEnd());
 }
