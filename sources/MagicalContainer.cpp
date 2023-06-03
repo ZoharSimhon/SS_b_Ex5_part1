@@ -161,6 +161,16 @@ void MagicalContainer::printPrimes()
     cout << endl;
 }
 
+list<Node *>::iterator MagicalContainer::getBegin()
+{
+    return this->numbers.begin();
+    // return this->numbers.front();
+}
+list<Node *>::iterator MagicalContainer::getEnd()
+{
+    return this->numbers.end();
+}
+
 MagicalContainer::~MagicalContainer()
 {
     for (auto it = numbers.begin(); it != numbers.end(); ++it)

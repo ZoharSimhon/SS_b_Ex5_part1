@@ -20,4 +20,13 @@ int main()
     container.printMagicalContainer();
     std::cout << "Size of container after removing an element: " << container.size() << std::endl;
     container.printPrimes();
+
+    // Use AscendingIterator to display elements in ascending order
+    std::cout << "Elements in ascending order:\n";
+    MagicalContainer::AscendingIterator ascIter(container);
+    for (auto it = ascIter.begin(); it != ascIter.end(); ++it)
+    {
+        std::cout << *it << ' '; // 2 3 9 17 25
+    }
+    std::cout << std::endl;
 }
