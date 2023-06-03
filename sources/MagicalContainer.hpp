@@ -10,6 +10,7 @@ namespace ariel
         list<Node *> numbers;
         Node *lastPrime;
         Node *firstPrime;
+        class AscendingIterator;
 
         // helper functions
         void addPrimeNumber(Node *newNode);
@@ -22,11 +23,8 @@ namespace ariel
         void removeElement(int number);
         void printMagicalContainer();
         void printPrimes();
-        // ~MagicalContainer();
-    };
+        ~MagicalContainer();
 
-    // MagicalContainer::~MagicalContainer()
-    // {
-    // }
+    };
 
 }

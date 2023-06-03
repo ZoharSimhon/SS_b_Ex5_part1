@@ -160,3 +160,11 @@ void MagicalContainer::printPrimes()
     }
     cout << endl;
 }
+
+MagicalContainer::~MagicalContainer()
+{
+    for (auto it = numbers.begin(); it != numbers.end(); ++it)
+    {
+        delete *it;
+    }
+}
