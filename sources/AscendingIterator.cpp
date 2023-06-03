@@ -22,10 +22,16 @@ MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer::Ascendi
 MagicalContainer::AscendingIterator::~AscendingIterator() {}
 
 // Assignment operator
-void MagicalContainer::AscendingIterator::operator=(AscendingIterator otherAI)
+MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::operator=(AscendingIterator otherAI)
 {
-    this->container_ = otherAI.container_;
-    this->it_ = otherAI.it_;
+    if (this != &otherAI)
+    {
+        if (&this->container_ != &otherAI.container_)
+            throw runtime_error("Can't assign iterators from different containers");
+
+        this->it_ = otherAI.it_;
+    }
+    return *this;
 }
 
 // Equality comparison(operator==)
@@ -71,6 +77,9 @@ int MagicalContainer::AscendingIterator::operator*() const
 // Pre-increment operator (operator++)
 MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::operator++()
 {
+    if (*this->it_ == nullptr)
+        throw runtime_error("out of range");
+
     ++this->it_;
     return *this;
 }

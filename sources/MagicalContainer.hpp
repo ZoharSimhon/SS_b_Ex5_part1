@@ -18,6 +18,7 @@ namespace ariel
     public:
         // iterators
         class AscendingIterator;
+        // class AscendingIterator;
 
         MagicalContainer();
         list<Node *>::iterator getBegin();
@@ -30,7 +31,7 @@ namespace ariel
         ~MagicalContainer();
     };
 
-    class MagicalContainer::AscendingIterator : public MagicalContainer
+    class MagicalContainer::AscendingIterator
     {
     private:
         list<Node *>::iterator it_;
@@ -52,7 +53,7 @@ namespace ariel
         ~AscendingIterator();
 
         // Assignment operator
-        void operator=(AscendingIterator otherAI);
+        AscendingIterator operator=(AscendingIterator otherAI);
 
         // Equality comparison(operator==)
         bool operator==(AscendingIterator otherAI);
