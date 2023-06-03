@@ -1,20 +1,11 @@
 #include "Node.hpp"
 using namespace ariel;
 
-// constructors
-// Node::Node(int data, Node *nextPrime, Node *prevPrime)
-// {
-//     this->data = data;
-//     this->nextPrime = nextPrime;
-//     this->prevPrime = prevPrime;
-//     this->isPrime = checkIsPrime(data);
-// }
+// constructor
 Node::Node(int data)
+    : data_(data), next_(nullptr), prev_(nullptr), nextPrime_(nullptr), prevPrime_(nullptr)
 {
-    this->data = data;
-    this->nextPrime = nullptr;
-    this->prevPrime = nullptr;
-    this->isPrime = checkIsPrime(data);
+    this->isPrime_ = checkIsPrime(data);
 }
 
 // helper function
@@ -31,36 +22,48 @@ bool Node::checkIsPrime(int number)
 // getters
 int Node::getData()
 {
-    return this->data;
+    return this->data_;
+}
+Node *Node::getNext()
+{
+    return this->next_;
+}
+Node *Node::getPrev()
+{
+    return this->prev_;
 }
 Node *Node::getNextPrime()
 {
-    return this->nextPrime;
+    return this->nextPrime_;
 }
 Node *Node::getPrevPrime()
 {
-    return this->prevPrime;
+    return this->prevPrime_;
 }
 bool Node::getIsPrime()
 {
-    return this->isPrime;
+    return this->isPrime_;
 }
 
 // setters
-void Node::setData(int data)
+void Node::setNext(Node *next)
 {
-    this->data = data;
+    this->next_ = next;
+}
+void Node::setPrev(Node *prev)
+{
+    this->prev_ = prev;
 }
 void Node::setNextPrime(Node *nextPrime)
 {
-    this->nextPrime = nextPrime;
+    this->nextPrime_ = nextPrime;
 }
 void Node::setPrevPrime(Node *prevPrime)
 {
-    this->prevPrime = prevPrime;
+    this->prevPrime_ = prevPrime;
 }
 
 bool Node::operator==(const Node &other)
 {
-    return (this->data == other.data);
+    return (this->data_ == other.data_);
 }

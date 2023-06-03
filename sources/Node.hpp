@@ -8,10 +8,12 @@ namespace ariel
     class Node
     {
     private:
-        int data;
-        Node *nextPrime;
-        Node *prevPrime;
-        bool isPrime;
+        int data_;
+        Node *next_;
+        Node *prev_;
+        Node *nextPrime_;
+        Node *prevPrime_;
+        bool isPrime_;
 
         // helper functions
         bool checkIsPrime(int number);
@@ -23,13 +25,17 @@ namespace ariel
 
         // getters
         int getData();
+        Node *getNext();
+        Node *getPrev();
         Node *getNextPrime();
         Node *getPrevPrime();
         bool getIsPrime();
         // setters
-        void setData(int data);
+        void setNext(Node *next);
+        void setPrev(Node *prev);
         void setNextPrime(Node *nextPrime);
         void setPrevPrime(Node *prevPrime);
+
         bool operator==(const Node &other);
     };
 }

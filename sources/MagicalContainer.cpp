@@ -1,88 +1,166 @@
 #include "MagicalContainer.hpp"
 using namespace ariel;
 
+MagicalContainer::MagicalContainer()
+    : first_(nullptr), last_(nullptr), firstPrime_(nullptr), size_(0) {}
+
+MagicalContainer::~MagicalContainer()
+{
+    for (Node *it = this->first_; it != nullptr; it = it->getNextPrime())
+    {
+        delete it;
+    }
+}
+
 // helper functions
+void MagicalContainer::insertToPrimes(Node *prevPrime, Node *newNode)
+{
+    // add the number to the first value
+    if (prevPrime == nullptr)
+    {
+        // update the next to the current first prime
+        newNode->setNextPrime(this->firstPrime_);
+        // change the next Node
+        if (this->firstPrime_ != nullptr)
+            firstPrime_->setPrevPrime(newNode);
+        // update the first
+        this->firstPrime_ = newNode;
+    }
+    // add the number in the middle
+    else
+    {
+        // define the next prime
+        Node *nextPrime = prevPrime->getNextPrime();
+        // update the prev & next of the new Node
+        newNode->setNextPrime(nextPrime);
+        newNode->setPrevPrime(prevPrime);
+        // change the prev Node
+        prevPrime->setNextPrime(newNode);
+        // change the next Node
+        if (nextPrime != nullptr)
+            nextPrime->setPrevPrime(newNode);
+        // update the last prime
+        // else
+        // this->lastPrime_ = newNode;
+    }
+}
+void MagicalContainer::insertToNumbers(Node *prev, Node *newNode)
+{
+    // add the number to the first value
+    if (prev == nullptr)
+    {
+        // update the next to the current first prime
+        newNode->setNext(this->first_);
+        // change the next Node
+        if (this->first_ != nullptr)
+            first_->setPrev(newNode);
+        // update the first
+        this->first_ = newNode;
+    }
+    // add the number in the middle
+    else
+    {
+        // define the next prime
+        Node *next = prev->getNext();
+        // update the prev & next of the new Node
+        newNode->setNext(next);
+        newNode->setPrev(prev);
+        // change the prev Node
+        prev->setNext(newNode);
+        // change the next Node
+        if (next != nullptr)
+            next->setPrev(newNode);
+        // update the last Node
+        else
+            this->last_ = newNode;
+    }
+}
 void MagicalContainer::addPrimeNumber(Node *newNode)
 {
+    Node *prevPrime = nullptr;
     Node *prev = nullptr;
 
-    for (auto it = numbers.begin(); it != numbers.end(); ++it)
+    for (Node *it = this->first_; it != nullptr; it = it->getNext())
     {
         // found the place to insert
-        if ((*it)->getData() >= newNode->getData())
+        if (it->getData() >= newNode->getData())
         {
-            // add the number to the first value
-            if (prev == nullptr)
-            {
-                // update the next to the current first prime
-                newNode->setNextPrime(this->firstPrime);
-                // change the next Node
-                if (this->firstPrime != nullptr)
-                    firstPrime->setPrevPrime(newNode);
-                // update the first
-                this->firstPrime = newNode;
-            }
-            // add the number in the middle
-            else
-            {
-                // define the next prime
-                Node *next = prev->getNextPrime();
-                // update the prev & next of the new Node
-                newNode->setNextPrime(next);
-                newNode->setPrevPrime(prev);
-                // change the prev Node
-                prev->setNextPrime(newNode);
-                // change the next Node
-                if (next != nullptr)
-                    next->setPrevPrime(newNode);
-                // update the last prime
-                else
-                    this->lastPrime = newNode;
-            }
-
-            // insert the new Node to the container
-            numbers.insert(it, newNode);
+            insertToPrimes(prevPrime, newNode);
+            insertToNumbers(prev, newNode);
             return;
         }
 
         // update the last prime
-        if ((*it)->getIsPrime())
-            prev = *it;
+        if (it->getIsPrime())
+            prevPrime = it;
+        // update the last Node
+        prev = it;
     }
 
-    // update the prev of the new Node
-    newNode->setPrevPrime(prev);
-
-    // update the first prime
-    if (this->firstPrime == nullptr)
-        this->firstPrime = newNode;
-
-    // insert the new Node to the container
-    numbers.emplace_back(newNode);
+    insertToPrimes(prevPrime, newNode);
+    insertToNumbers(prev, newNode);
 }
 void MagicalContainer::addCompositeNumber(Node *newNode)
 {
-    for (auto it = numbers.begin(); it != numbers.end(); ++it)
+    Node *prev = nullptr;
+    for (Node *it = this->first_; it != nullptr; it = it->getNext())
     {
         // found the place to insert
-        if ((*it)->getData() >= newNode->getData())
+        if (it->getData() >= newNode->getData())
         {
-            numbers.insert(it, newNode);
+            insertToNumbers(prev, newNode);
             return;
         }
+
+        // update the last Node
+        prev = it;
     }
-    numbers.emplace_back(newNode);
+    insertToNumbers(prev, newNode);
 }
-
-MagicalContainer::MagicalContainer()
+void MagicalContainer::removeFromPrimes(Node *deletedNode)
 {
-    this->firstPrime = nullptr;
-    this->lastPrime = nullptr;
+    Node *prevPrime = deletedNode->getPrevPrime();
+    Node *nextPrime = deletedNode->getNextPrime();
+    // update the prev
+    if (prevPrime != nullptr)
+    {
+        prevPrime->setNextPrime(nextPrime);
+    }
+    // update the next
+    if (nextPrime != nullptr)
+    {
+        nextPrime->setPrevPrime(prevPrime);
+    }
+    // update the head
+    if (this->firstPrime_ == deletedNode)
+    {
+        this->firstPrime_ = nextPrime;
+    }
 }
-
-int MagicalContainer::size()
+void MagicalContainer::removeFromNumbers(Node *deletedNode)
 {
-    return this->numbers.size();
+    Node *prev = deletedNode->getPrev();
+    Node *next = deletedNode->getNext();
+    // update the prev
+    if (prev != nullptr)
+    {
+        prev->setNext(next);
+    }
+    // update the next
+    if (next != nullptr)
+    {
+        next->setPrev(prev);
+    }
+    // update the head
+    if (this->first_ == deletedNode)
+    {
+        this->first_ = next;
+    }
+    // update the teal
+    if (this->last_ == deletedNode)
+    {
+        this->last_ = prev;
+    }
 }
 
 void MagicalContainer::addElement(int number)
@@ -93,88 +171,69 @@ void MagicalContainer::addElement(int number)
         addPrimeNumber(newNode);
     else
         addCompositeNumber(newNode);
+    this->size_++;
 }
 
 void MagicalContainer::removeElement(int number)
 {
-    // if (newNode->getIsPrime())
-    //     removePrimeNumber(number);
-    // else
-    //     removeCompositeNumber(number);
 
-    for (auto it = numbers.begin(); it != numbers.end(); ++it)
+    for (Node *it = this->first_; it != nullptr; it = it->getNext())
     {
-        if ((*it)->getData() == number)
+        if (it->getData() == number)
         {
             // change the pointers
-            if ((*it)->getIsPrime())
+            if (it->getIsPrime())
             {
-                Node *prev = (*it)->getPrevPrime();
-                Node *next = (*it)->getNextPrime();
-                // update the prev
-                if (prev != nullptr)
-                {
-                    prev->setNextPrime(next);
-                }
-                // update the next
-                if (next != nullptr)
-                {
-                    next->setPrevPrime(prev);
-                }
-                // update the head
-                if (this->firstPrime == (*it))
-                {
-                    this->firstPrime = next;
-                }
-                // update the teal
-                if (this->lastPrime == (*it))
-                {
-                    this->lastPrime = prev;
-                }
+                removeFromPrimes(it);
             }
 
             // remove from the list
-            numbers.remove(*it);
+            removeFromNumbers(it);
+            // free the deleted Node
+            delete it;
+
+            this->size_--;
             return;
         }
     }
     // didn't found the number
 }
 
+int MagicalContainer::size()
+{
+    return this->size_;
+}
+
+// getters
+Node *MagicalContainer::getBegin()
+{
+    return this->first_;
+}
+Node *MagicalContainer::getEnd()
+{
+    return this->last_;
+}
+Node *MagicalContainer::getFirstPrime()
+{
+    return this->firstPrime_;
+}
+
 void MagicalContainer::printMagicalContainer()
 {
-    for (auto it = numbers.begin(); it != numbers.end(); ++it)
+    cout << "elements: ";
+    for (Node *it = this->first_; it != nullptr; it = it->getNext())
     {
-        cout << (*it)->getData() << ",";
+        cout << it->getData() << ",";
     }
-    cout << endl;
+    cout << "NULL" << endl;
 }
 
 void MagicalContainer::printPrimes()
 {
-    Node *curr = this->firstPrime;
-    while (curr != nullptr)
+    cout << "primes: ";
+    for (Node *it = this->first_; it != nullptr; it = it->getNextPrime())
     {
-        cout << curr->getData() << ",";
-        curr = curr->getNextPrime();
+        cout << it->getData() << ", ";
     }
-    cout << endl;
-}
-
-list<Node *>::iterator MagicalContainer::getBegin()
-{
-    return this->numbers.begin();
-    // return this->numbers.front();
-}
-list<Node *>::iterator MagicalContainer::getEnd()
-{
-    return this->numbers.end();
-}
-
-MagicalContainer::~MagicalContainer()
-{
-    for (auto it = numbers.begin(); it != numbers.end(); ++it)
-    {
-        delete *it;
-    }
+    cout << "NULL" << endl;
 }
