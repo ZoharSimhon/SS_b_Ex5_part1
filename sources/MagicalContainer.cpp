@@ -205,15 +205,15 @@ int MagicalContainer::size()
 }
 
 // getters
-Node *MagicalContainer::getBegin()
+Node *MagicalContainer::getBegin() const
 {
     return this->first_;
 }
-Node *MagicalContainer::getEnd()
+Node *MagicalContainer::getEnd() const
 {
     return this->last_;
 }
-Node *MagicalContainer::getFirstPrime()
+Node *MagicalContainer::getFirstPrime() const
 {
     return this->firstPrime_;
 }

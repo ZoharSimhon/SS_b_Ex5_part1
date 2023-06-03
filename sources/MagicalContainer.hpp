@@ -28,12 +28,13 @@ namespace ariel
     public:
         // iterators
         class Iterator;
+        class AscendingIterator;
 
         MagicalContainer();
         // getters
-        Node *getBegin();
-        Node *getEnd();
-        Node *getFirstPrime();
+        Node *getBegin() const;
+        Node *getEnd() const;
+        Node *getFirstPrime() const;
 
         int size();
         void addElement(int number);
@@ -43,7 +44,7 @@ namespace ariel
         ~MagicalContainer();
     };
 
-    // abstract claa
+    // abstract class
     class MagicalContainer::Iterator
     {
     private:
@@ -53,7 +54,7 @@ namespace ariel
 
     public:
         // constructor with container
-        Iterator(const MagicalContainer &container, int type);
+        Iterator(const MagicalContainer &container, int type, Node *it);
         // Dereference operator (operator*)
         int operator*() const;
         // Equality comparison(operator==)
@@ -63,6 +64,16 @@ namespace ariel
         //  GT, LT comparison (operator>, operatorn<)
         bool operator<(const Iterator &otherIt) const;
         bool operator>(const Iterator &otherIt) const;
+        // Assignment operator
+        // Iterator& operator=(Iterator otherIt);
+
+        // getters
+        Node *getIt() const;
+        const MagicalContainer &getContainer() const;
+        int getType() const;
+
+        // setters
+        void setIt(Node *it);
 
         // virtual methods
         // Pre-increment operator (operator++)
@@ -71,6 +82,37 @@ namespace ariel
         virtual Iterator &begin() const = 0;
         // end(type): Returns the appropriate iterator pointing to the last element of the container
         virtual Iterator &end() const = 0;
+    };
+
+    class MagicalContainer::AscendingIterator : public Iterator
+    {
+    private:
+        // constructor with container & iterator
+        AscendingIterator(const MagicalContainer &container, Node *it);
+
+    public:
+        // Default constructor
+        // AscendingIterator();
+
+        // Copy constructor
+        // AscendingIterator(AscendingIterator const &otherAI);
+
+        // constructor with container
+        AscendingIterator(const MagicalContainer &container);
+
+        // Assignment operator
+        AscendingIterator operator=(AscendingIterator otherAI);
+
+        // Destructor
+        ~AscendingIterator() {}
+
+        // override methods
+        // Pre-increment operator (operator++)
+        AscendingIterator &operator++() override;
+        // begin(type): Returns the appropriate iterator pointing to the first element of the container
+        AscendingIterator &begin() const override;
+        // end(type): Returns the appropriate iterator pointing to the last element of the container
+        AscendingIterator &end() const override;
     };
 
     // class MagicalContainer::SideCrossIterator

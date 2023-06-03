@@ -22,37 +22,38 @@ int main()
     std::cout << "Size of container after removing an element: " << container.size() << std::endl;
     container.printPrimes();
 
-    // // Use AscendingIterator to display elements in ascending order
-    // std::cout << "Elements in ascending order:\n";
-    // MagicalContainer::AscendingIterator ascIter(container);
-    // for (auto it = ascIter.begin(); it != ascIter.end(); ++it)
-    // {
-    //     std::cout << *it << ' '; // 2 3 9 17 25
-    // }
-    // std::cout << std::endl;
-    // auto it = ascIter.begin();
-    // auto it2 = ascIter.begin();
-    // ++it2;
-    // if(it<it2){
-    //     cout <<"LT"<<endl;
-    // }
-    // if(it2<it){
-    //     cout <<"NLT"<<endl;
-    // }
-    // ++it;
-    //     if(it==it2){
-    //     cout <<"EQ"<<endl;
-    // }
-    // if(it2!=it){
-    //     cout <<"NEq"<<endl;
-    // }
-    // ++it;
-    // if(it>it2){
-    //     cout <<"GT"<<endl;
-    // }
-    // if(it2>it){
-    //     cout <<"NGT"<<endl;
-    // }
+    // Use AscendingIterator to display elements in ascending order
+    std::cout << "Elements in ascending order:\n";
+    MagicalContainer::AscendingIterator ascIter(container);
+
+    for (auto it = ascIter.begin(); it != ascIter.end(); ++it)
+    {
+        std::cout << *it << ' '; // 2 3 9 17 25
+    }
+    std::cout << std::endl;
+    auto it = ascIter.begin();
+    auto it2 = ascIter.begin();
+    ++it2;
+    if(it<it2){
+        cout <<"LT"<<endl;
+    }
+    if(it2<it){
+        cout <<"NLT"<<endl;
+    }
+    ++it;
+        if(it==it2){
+        cout <<"EQ"<<endl;
+    }
+    if(it2!=it){
+        cout <<"NEq"<<endl;
+    }
+    ++it;
+    if(it>it2){
+        cout <<"GT"<<endl;
+    }
+    if(it2>it){
+        cout <<"NGT"<<endl;
+    }
 
 
 }
