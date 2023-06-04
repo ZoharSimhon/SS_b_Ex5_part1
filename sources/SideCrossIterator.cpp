@@ -11,8 +11,8 @@ MagicalContainer::SideCrossIterator::SideCrossIterator(const MagicalContainer &c
     : Iterator(container, SideCross, container.first_), lastIt_(container.last_), counter_(0) {}
 
 // constructor with container & iterator
-MagicalContainer::SideCrossIterator::SideCrossIterator(const MagicalContainer &container, Node *it)
-    : Iterator(container, SideCross, it), lastIt_(container.last_), counter_(container.size_) {}
+MagicalContainer::SideCrossIterator::SideCrossIterator(const MagicalContainer &container, Node *iter)
+    : Iterator(container, SideCross, iter), lastIt_(container.last_), counter_(container.size_) {}
 
 // Copy constructor
 MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer::SideCrossIterator const &otherSCI)

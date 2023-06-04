@@ -177,7 +177,7 @@ TEST_SUITE("Class SideCrossIterator")
         CHECK(crossIter1 != crossIter2);
         CHECK(!(crossIter1 == crossIter2));
 
-        // greater then - check that it compares by location and not by value
+        // greater then - check that iter compares by location and not by value
         CHECK(crossIter1 > crossIter2);
         CHECK(!(crossIter2 > crossIter1));
         ++crossIter2; // increment in 1

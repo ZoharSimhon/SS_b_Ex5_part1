@@ -11,8 +11,8 @@ MagicalContainer::PrimeIterator::PrimeIterator(const MagicalContainer &container
     : Iterator(container, Prime, container.firstPrime_) {}
 
 // constructor with container & iterator
-MagicalContainer::PrimeIterator::PrimeIterator(const MagicalContainer &container, Node *it)
-    : Iterator(container, Prime, it) {}
+MagicalContainer::PrimeIterator::PrimeIterator(const MagicalContainer &container, Node *iter)
+    : Iterator(container, Prime, iter) {}
 
 // Copy constructor
 MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer::PrimeIterator const &otherPI)

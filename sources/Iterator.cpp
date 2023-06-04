@@ -3,8 +3,8 @@
 using namespace ariel;
 
 // constructor with container
-MagicalContainer::Iterator::Iterator(const MagicalContainer &container, int type, Node *it)
-    : container_(container), type_(type), it_(it) {}
+MagicalContainer::Iterator::Iterator(const MagicalContainer &container, int type, Node *iter)
+    : container_(container), type_(type), it_(iter) {}
 
 // Dereference operator (operator*)
 int MagicalContainer::Iterator::operator*() const
@@ -68,7 +68,7 @@ int MagicalContainer::Iterator::getType() const
 }
 
 // setters
-void MagicalContainer::Iterator::setIt(Node *it)
+void MagicalContainer::Iterator::setIt(Node *iter)
 {
-    this->it_ = it;
+    this->it_ = iter;
 }

@@ -11,8 +11,8 @@ MagicalContainer::AscendingIterator::AscendingIterator(const MagicalContainer &c
     : Iterator(container, Ascending, container.first_) {}
 
 // constructor with container & iterator
-MagicalContainer::AscendingIterator::AscendingIterator(const MagicalContainer &container, Node *it)
-    : Iterator(container, Ascending, it) {}
+MagicalContainer::AscendingIterator::AscendingIterator(const MagicalContainer &container, Node *iter)
+    : Iterator(container, Ascending, iter) {}
 
 // Copy constructor
 MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer::AscendingIterator const &otherAI)

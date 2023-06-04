@@ -8,11 +8,11 @@ MagicalContainer::~MagicalContainer()
 {
     Node *prev = nullptr;
     bool first = true;
-    for (Node *it = this->first_; it != nullptr; it = it->getNext())
+    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNext())
     {
         if (!first)
             delete prev;
-        prev = it;
+        prev = iter;
     }
 }
 
@@ -84,10 +84,10 @@ void MagicalContainer::addPrimeNumber(Node *newNode)
     Node *prevPrime = nullptr;
     Node *prev = nullptr;
 
-    for (Node *it = this->first_; it != nullptr; it = it->getNext())
+    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNext())
     {
         // found the place to insert
-        if (it->getData() >= newNode->getData())
+        if (iter->getData() >= newNode->getData())
         {
             insertToPrimes(prevPrime, newNode);
             insertToNumbers(prev, newNode);
@@ -95,10 +95,10 @@ void MagicalContainer::addPrimeNumber(Node *newNode)
         }
 
         // update the last prime
-        if (it->getIsPrime())
-            prevPrime = it;
+        if (iter->getIsPrime())
+            prevPrime = iter;
         // update the last Node
-        prev = it;
+        prev = iter;
     }
 
     insertToPrimes(prevPrime, newNode);
@@ -107,17 +107,17 @@ void MagicalContainer::addPrimeNumber(Node *newNode)
 void MagicalContainer::addCompositeNumber(Node *newNode)
 {
     Node *prev = nullptr;
-    for (Node *it = this->first_; it != nullptr; it = it->getNext())
+    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNext())
     {
         // found the place to insert
-        if (it->getData() >= newNode->getData())
+        if (iter->getData() >= newNode->getData())
         {
             insertToNumbers(prev, newNode);
             return;
         }
 
         // update the last Node
-        prev = it;
+        prev = iter;
     }
     insertToNumbers(prev, newNode);
 }
@@ -185,20 +185,20 @@ void MagicalContainer::removeElement(int number)
         throw runtime_error("Can't remove from an empty list");
     }
 
-    for (Node *it = this->first_; it != nullptr; it = it->getNext())
+    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNext())
     {
-        if (it->getData() == number)
+        if (iter->getData() == number)
         {
             // change the pointers
-            if (it->getIsPrime())
+            if (iter->getIsPrime())
             {
-                removeFromPrimes(it);
+                removeFromPrimes(iter);
             }
 
             // remove from the list
-            removeFromNumbers(it);
+            removeFromNumbers(iter);
             // free the deleted Node
-            delete it;
+            delete iter;
 
             this->size_--;
             return;
@@ -230,9 +230,9 @@ Node *MagicalContainer::getFirstPrime() const
 void MagicalContainer::printMagicalContainer()
 {
     cout << "elements: ";
-    for (Node *it = this->first_; it != nullptr; it = it->getNext())
+    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNext())
     {
-        cout << it->getData() << ",";
+        cout << iter->getData() << ",";
     }
     cout << "NULL" << endl;
 }
@@ -240,9 +240,9 @@ void MagicalContainer::printMagicalContainer()
 void MagicalContainer::printPrimes()
 {
     cout << "primes: ";
-    for (Node *it = this->first_; it != nullptr; it = it->getNextPrime())
+    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNextPrime())
     {
-        cout << it->getData() << ", ";
+        cout << iter->getData() << ", ";
     }
     cout << "NULL" << endl;
 }

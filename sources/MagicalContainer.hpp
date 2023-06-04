@@ -2,9 +2,9 @@
 #include "Node.hpp"
 #include <list>
 
-#define Ascending 1
-#define SideCross 2
-#define Prime 3
+constexpr int Ascending = 1;
+constexpr int SideCross = 2;
+constexpr int Prime = 3;
 
 namespace ariel
 {
@@ -56,7 +56,7 @@ namespace ariel
 
     public:
         // constructor with container
-        Iterator(const MagicalContainer &container, int type, Node *it);
+        Iterator(const MagicalContainer &container, int type, Node *iter);
         // Dereference operator (operator*)
         virtual int operator*() const;
         // Equality comparison(operator==)
@@ -73,7 +73,7 @@ namespace ariel
         int getType() const;
 
         // setters
-        void setIt(Node *it);
+        void setIt(Node *iter);
 
         // virtual methods
         // Pre-increment operator (operator++)
@@ -89,7 +89,7 @@ namespace ariel
     {
     private:
         // constructor with container & iterator
-        AscendingIterator(const MagicalContainer &container, Node *it);
+        AscendingIterator(const MagicalContainer &container, Node *iter);
 
     public:
         // Default constructor
@@ -121,7 +121,7 @@ namespace ariel
     {
     private:
         // constructor with container & iterator
-        PrimeIterator(const MagicalContainer &container, Node *it);
+        PrimeIterator(const MagicalContainer &container, Node *iter);
 
     public:
         // Default constructor
@@ -155,7 +155,7 @@ namespace ariel
         Node *lastIt_;
         size_t counter_;
         // constructor with container & iterator
-        SideCrossIterator(const MagicalContainer &container, Node *it);
+        SideCrossIterator(const MagicalContainer &container, Node *iter);
 
     public:
         // Default constructor
