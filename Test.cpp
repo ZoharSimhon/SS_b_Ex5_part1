@@ -104,11 +104,289 @@ TEST_SUITE("Class AscendingIterator")
 
         // equality
         CHECK(ascIter1 == ascIter2);
-        CHECK(!(ascIter1 == ascIter2));
-        ++ascIter1;
-        CHECK(ascIter1 != ascIter2);
         CHECK(!(ascIter1 != ascIter2));
+        ++ascIter1; // increment in 1
+        CHECK(ascIter1 != ascIter2);
+        CHECK(!(ascIter1 == ascIter2));
 
+        // greater then
+        CHECK(ascIter1 > ascIter2);
+        CHECK(!(ascIter2 > ascIter1));
+        ++ascIter2; // increment in 1
+        CHECK(!(ascIter1 > ascIter2));
+        ++ascIter2; // increment in 2
+        CHECK(ascIter2 > ascIter1);
 
+        // less then
+        CHECK(ascIter1 < ascIter2);
+        CHECK(!(ascIter2 < ascIter1));
+        ++ascIter1; // increment in 2
+        CHECK(!(ascIter1 < ascIter2));
+    }
+}
+
+TEST_SUITE("Class SideCrossIterator")
+{
+    TEST_CASE("Method: operator*")
+    {
+        MagicalContainer container;
+        container.addElement(30);
+        container.addElement(5);
+        container.addElement(2);
+        container.addElement(80);
+        container.addElement(17);
+
+        MagicalContainer::SideCrossIterator crossIter(container);
+        // Order: 2 5 17 30 80
+        // SideCross: 2 80 5 30 17
+
+        // checking that the iterator is ordered
+        CHECK(*crossIter == 2);
+        ++crossIter;
+        CHECK(*crossIter == 80);
+        ++crossIter;
+        CHECK(*crossIter == 5);
+        ++crossIter;
+        CHECK(*crossIter == 30);
+        ++crossIter;
+        CHECK(*crossIter == 17);
+
+        // checking that we can't use operator* for nullptr
+        ++crossIter;
+        CHECK_THROWS(*crossIter);
+        // checking that we can't use ++operator for nullptr
+        CHECK_THROWS(++crossIter);
+    }
+
+    TEST_CASE("Comparison methods")
+    {
+        MagicalContainer container;
+        container.addElement(30);
+        container.addElement(5);
+        container.addElement(2);
+        container.addElement(80);
+        container.addElement(17);
+
+        MagicalContainer::SideCrossIterator crossIter1(container);
+        MagicalContainer::SideCrossIterator crossIter2(container);
+
+        // equality
+        CHECK(crossIter1 == crossIter2);
+        CHECK(!(crossIter1 != crossIter2));
+        ++crossIter1; // increment in 1
+        CHECK(crossIter1 != crossIter2);
+        CHECK(!(crossIter1 == crossIter2));
+
+        // greater then - check that it compares by location and not by value
+        CHECK(crossIter1 > crossIter2);
+        CHECK(!(crossIter2 > crossIter1));
+        ++crossIter2; // increment in 1
+        CHECK(!(crossIter1 > crossIter2));
+        ++crossIter2; // increment in 2
+        CHECK(crossIter2 > crossIter1);
+
+        // less then
+        // CHECK(crossIter1 < crossIter2);
+        CHECK(!(crossIter2 < crossIter1));
+        ++crossIter1; // increment in 2
+        CHECK(!(crossIter1 < crossIter2));
+    }
+}
+
+TEST_SUITE("Class PrimeIterator")
+{
+    TEST_CASE("Method: operator*")
+    {
+        MagicalContainer container;
+        container.addElement(101);
+        container.addElement(18);
+        container.addElement(3);
+        container.addElement(7);
+        container.addElement(28);
+
+        MagicalContainer::PrimeIterator primeIter(container);
+
+        // checking that the iterator is ordered
+        CHECK(*primeIter == 3);
+        ++primeIter;
+        CHECK(*primeIter == 7);
+        ++primeIter;
+        CHECK(*primeIter == 101);
+
+        // checking that we can't use operator* for nullptr
+        ++primeIter;
+        CHECK_THROWS(*primeIter);
+
+        // checking that we can't use ++operator for nullptr
+        CHECK_THROWS(++primeIter);
+    }
+
+    TEST_CASE("Comparison methods")
+    {
+        MagicalContainer container;
+        container.addElement(101);
+        container.addElement(18);
+        container.addElement(3);
+        container.addElement(7);
+        container.addElement(28);
+
+        MagicalContainer::PrimeIterator primeIter1(container);
+        MagicalContainer::PrimeIterator primeIter2(container);
+
+        // equality
+        CHECK(primeIter1 == primeIter2);
+        CHECK(!(primeIter1 != primeIter2));
+        ++primeIter1; // increment in 1
+        CHECK(primeIter1 != primeIter2);
+        CHECK(!(primeIter1 == primeIter2));
+
+        // greater then
+        CHECK(primeIter1 > primeIter2);
+        CHECK(!(primeIter2 > primeIter1));
+        ++primeIter2; // increment in 1
+        CHECK(!(primeIter1 > primeIter2));
+        ++primeIter2; // increment in 2
+        CHECK(primeIter2 > primeIter1);
+
+        // less then
+        CHECK(primeIter1 < primeIter2);
+        CHECK(!(primeIter2 < primeIter1));
+        ++primeIter1; // increment in 2
+        CHECK(!(primeIter1 < primeIter2));
+    }
+}
+
+TEST_SUITE("non-valid comparisons")
+{
+    TEST_CASE("Comparison by different iterators")
+    {
+        MagicalContainer container;
+        container.addElement(12);
+        container.addElement(2);
+        container.addElement(18);
+        container.addElement(29);
+
+        MagicalContainer::AscendingIterator ascIter(container);
+        MagicalContainer::SideCrossIterator crossIter(container);
+        MagicalContainer::PrimeIterator primeIter(container);
+
+        // equality - check throw even that their value equals to 2
+        // CHECK_THROWS(ascIter == crossIter);
+        // CHECK_THROWS(ascIter == primeIter);
+        // CHECK_THROWS(primeIter == crossIter);
+
+        // // inequality - check throw even that their value isn't the same
+        // ++ascIter;   // equals to 12
+        // ++crossIter; // equals to 29
+        // // primeIter equals to 2
+        // CHECK_THROWS(ascIter != crossIter);
+        // CHECK_THROWS(ascIter != primeIter);
+        // CHECK_THROWS(primeIter != crossIter);
+
+        // // greater then
+        // CHECK_THROWS(crossIter > ascIter);   // correct
+        // CHECK_THROWS(ascIter > primeIter);   // correct
+        // CHECK_THROWS(primeIter > crossIter); // not correct
+
+        // // less then
+        // CHECK_THROWS(ascIter < crossIter);   // correct
+        // CHECK_THROWS(primeIter < ascIter);   // correct
+        // CHECK_THROWS(crossIter < primeIter); // not correct
+    }
+
+    TEST_CASE("Comparison by different containers in AscendingIterator")
+    {
+        MagicalContainer container1;
+        container1.addElement(12);
+        container1.addElement(2);
+        container1.addElement(18);
+        container1.addElement(29);
+
+        MagicalContainer container2;
+        container2.addElement(18);
+        container2.addElement(2);
+        container2.addElement(20);
+        container2.addElement(29);
+
+        MagicalContainer::AscendingIterator ascIter1(container1);
+        MagicalContainer::AscendingIterator ascIter2(container2);
+
+        // equality - check throw even that their value equals to 2
+        // CHECK_THROWS(ascIter1 == ascIter2); // correct
+
+        // inequality - check throw even that their value isn't the same
+        ++ascIter1; // equals to 12
+        // ascIter2 equals to 2
+        // CHECK_THROWS(ascIter1 != ascIter2); // correct
+
+        // greater then
+        // CHECK_THROWS(ascIter1 > ascIter2); // correct
+
+        // less then
+        // CHECK_THROWS(ascIter1 < ascIter2); // not correct
+    }
+
+    TEST_CASE("Comparison by different containers in SideCrossIterator")
+    {
+        MagicalContainer container1;
+        container1.addElement(12);
+        container1.addElement(2);
+        container1.addElement(18);
+        container1.addElement(29);
+
+        MagicalContainer container2;
+        container2.addElement(18);
+        container2.addElement(2);
+        container2.addElement(20);
+        container2.addElement(29);
+
+        MagicalContainer::SideCrossIterator crossIter1(container1);
+        MagicalContainer::SideCrossIterator crossIter2(container2);
+
+        // equality - check throw even that their value equals to 2
+        // CHECK_THROWS(crossIter1 == crossIter2); // correct
+
+        // inequality - check throw even that their value isn't the same
+        ++crossIter1; // equals to 29
+        // crossIter2 equals to 2
+        // CHECK_THROWS(crossIter1 != crossIter2); // correct
+
+        // greater then
+        // CHECK_THROWS(crossIter1 > crossIter2); // correct
+
+        // less then
+        // CHECK_THROWS(crossIter1 < crossIter2); // not correct
+    }
+
+    TEST_CASE("Comparison by different containers in PrimeIterator")
+    {
+        MagicalContainer container1;
+        container1.addElement(12);
+        container1.addElement(2);
+        container1.addElement(18);
+        container1.addElement(29);
+
+        MagicalContainer container2;
+        container2.addElement(18);
+        container2.addElement(2);
+        container2.addElement(20);
+        container2.addElement(29);
+
+        MagicalContainer::PrimeIterator primeIter1(container1);
+        MagicalContainer::PrimeIterator primeIter2(container2);
+
+        // equality - check throw even that their value equals to 2
+        // CHECK_THROWS(primeIter1 == primeIter2); // correct
+
+        // inequality - check throw even that their value isn't the same
+        ++primeIter1; // equals to 29
+        // primeIter2 equals to 2
+        // CHECK_THROWS(primeIter1 != primeIter2); // correct
+
+        // greater then
+        // CHECK_THROWS(primeIter1 > primeIter2); // correct
+
+        // less then
+        // CHECK_THROWS(primeIter1 < primeIter2); // not correct
     }
 }

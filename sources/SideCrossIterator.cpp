@@ -37,9 +37,27 @@ MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::operato
     return *this;
 }
 
+bool MagicalContainer::SideCrossIterator::operator>(const SideCrossIterator &otherIt) const
+{
+    if (this->getType() != otherIt.getType())
+        throw runtime_error("Can't compare different iterators");
+
+    if (&this->getContainer() != &otherIt.getContainer())
+        throw runtime_error("Can't compare iterators from different containers");
+
+    if (this->counter_ > otherIt.counter_)
+        return true;
+
+    return false;
+}
+
 // Dereference operator (operator*)
 int MagicalContainer::SideCrossIterator::operator*() const
 {
+    if (this->getIt() == nullptr)
+    {
+        throw runtime_error("Can't use dereference operator for nullptr operator");
+    }
     if (this->counter_ % 2 == 0)
         return this->getIt()->getData();
     else
@@ -53,7 +71,7 @@ MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operat
         throw runtime_error("out of range");
 
     // check if we have gone through all the elements
-    if (this->counter_ == this->getContainer().size_-1)
+    if (this->counter_ == this->getContainer().size_ - 1)
     {
         this->setIt(nullptr);
         this->lastIt_ = nullptr;

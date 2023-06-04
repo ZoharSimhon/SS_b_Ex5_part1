@@ -12,12 +12,8 @@ SOURCES=$(wildcard $(SOURCE_PATH)/*.cpp)
 HEADERS=$(wildcard $(SOURCE_PATH)/*.hpp)
 OBJECTS=$(subst sources/,objects/,$(subst .cpp,.o,$(SOURCES)))
 
-run: mydemo
+run: demo
 	./$^
-
-
-mydemo: MyDemo.o $(OBJECTS) 
-	$(CXX) $(CXXFLAGS) $^ -o $@
 
 demo: Demo.o $(OBJECTS) 
 	$(CXX) $(CXXFLAGS) $^ -o $@

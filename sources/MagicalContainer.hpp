@@ -65,7 +65,7 @@ namespace ariel
         bool operator!=(const Iterator &otherIt) const;
         //  GT, LT comparison (operator>, operatorn<)
         bool operator<(const Iterator &otherIt) const;
-        bool operator>(const Iterator &otherIt) const;
+        virtual bool operator>(const Iterator &otherIt) const;
 
         // getters
         Node *getIt() const;
@@ -174,6 +174,7 @@ namespace ariel
         ~SideCrossIterator() {}
 
         // override methods
+        virtual bool operator>(const SideCrossIterator &otherIt) const;
         // Dereference operator (operator*)
         int operator*() const override;
         // Pre-increment operator (operator++)
