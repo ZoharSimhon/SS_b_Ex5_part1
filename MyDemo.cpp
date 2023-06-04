@@ -108,4 +108,36 @@ int main()
         std::cout << *it << ' '; // 2 25 3 17 9
     }
     std::cout << std::endl;
+
+    auto itSC = crossIter.begin();
+    auto itSC2 = crossIter.begin();
+    ++itSC2;
+    cout<< (*itSC) <<", "<<(*itSC2)<<endl;
+    if (itSC < itSC2)
+    {
+        cout << "LT" << endl;
+    }
+    if (itSC2 < itSC)
+    {
+        cout << "NLT" << endl;
+    }
+    ++itSC;
+    if (itSC == itSC2)
+    {
+        cout << "EQ" << endl;
+    }
+    if (itSC2 != itSC)
+    {
+        cout << "NEQ" << endl;
+    }
+    ++itSC;
+    cout<< (*itSC) <<", "<<(*itSC2)<<endl;
+    if (itSC2 > itSC)
+    {
+        cout << "GT" << endl;
+    }
+    if (itSC > itSC2)
+    {
+        cout << "NGT" << endl;
+    }
 }

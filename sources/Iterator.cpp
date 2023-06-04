@@ -9,6 +9,10 @@ MagicalContainer::Iterator::Iterator(const MagicalContainer &container, int type
 // Dereference operator (operator*)
 int MagicalContainer::Iterator::operator*() const
 {
+    if (this->it_ == nullptr)
+    {
+        throw runtime_error("Can't use dereference operator for nullptr operator");
+    }
     return this->it_->getData();
 }
 // Equality comparison(operator==)

@@ -6,9 +6,13 @@ MagicalContainer::MagicalContainer()
 
 MagicalContainer::~MagicalContainer()
 {
-    for (Node *it = this->first_; it != nullptr; it = it->getNextPrime())
+    Node *prev = nullptr;
+    bool first = true;
+    for (Node *it = this->first_; it != nullptr; it = it->getNext())
     {
-        delete it;
+        if (!first)
+            delete prev;
+        prev = it;
     }
 }
 
@@ -176,6 +180,10 @@ void MagicalContainer::addElement(int number)
 
 void MagicalContainer::removeElement(int number)
 {
+    if (this->size_ == 0)
+    {
+        throw runtime_error("Can't remove from an empty list");
+    }
 
     for (Node *it = this->first_; it != nullptr; it = it->getNext())
     {
@@ -197,6 +205,7 @@ void MagicalContainer::removeElement(int number)
         }
     }
     // didn't found the number
+    throw runtime_error("Can't remove a non-exist element");
 }
 
 int MagicalContainer::size()
