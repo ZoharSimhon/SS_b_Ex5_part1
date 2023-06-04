@@ -48,22 +48,6 @@ bool MagicalContainer::Iterator::operator<(const Iterator &otherIt) const
 {
     return !(*this > otherIt || *this == otherIt);
 }
-// // Assignment operator
-// Iterator &MagicalContainer::Iterator::operator=(Iterator otherIt)
-// {
-    
-//     if (this->type_ != otherIt.type_)
-//         throw runtime_error("Can't assign different iterators");
-
-//     if (this != &otherIt)
-//     {
-//         if (&this-container_ != &otherIt.container_)
-//             throw runtime_error("Can't assign iterators from different containers");
-
-//         this->it_ = otherIt.it_;
-//     }
-//     return *this;
-// }
 
 // getters
 Node *MagicalContainer::Iterator::getIt() const

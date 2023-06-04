@@ -15,8 +15,8 @@ MagicalContainer::AscendingIterator::AscendingIterator(const MagicalContainer &c
     : Iterator(container, Ascending, it) {}
 
 // Copy constructor
-// MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer::AscendingIterator const &otherAI)
-//     : container_(otherAI.container_), it_(otherAI.it_), type_(Ascending) {}
+MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer::AscendingIterator const &otherAI)
+    : Iterator(otherAI.getContainer(), Ascending, otherAI.getIt()) {}
 
 // Assignment operator
 MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::operator=(AscendingIterator otherAI)

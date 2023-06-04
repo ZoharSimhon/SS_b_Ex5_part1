@@ -55,5 +55,37 @@ int main()
         cout <<"NGT"<<endl;
     }
 
+    // Use PrimeIterator to display prime numbers only
+    std::cout << "Prime numbers:\n";
+    MagicalContainer::PrimeIterator primeIter(container);
+    for (auto it = primeIter.begin(); it != primeIter.end(); ++it) {
+        std::cout << *it << ' ';  // 2 3 17 
+    }
+    std::cout << std::endl;
+
+    auto itp = primeIter.begin();
+    auto itp2 = primeIter.begin();
+    ++itp2;
+    if(itp<itp2){
+        cout <<"LT"<<endl;
+    }
+    if(itp2<itp){
+        cout <<"NLT"<<endl;
+    }
+    ++itp;
+        if(itp==itp2){
+        cout <<"EQ"<<endl;
+    }
+    if(itp2!=itp){
+        cout <<"NEq"<<endl;
+    }
+    ++itp;
+    if(itp>itp2){
+        cout <<"GT"<<endl;
+    }
+    if(itp2>itp){
+        cout <<"NGT"<<endl;
+    }
+
 
 }

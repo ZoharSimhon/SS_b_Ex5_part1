@@ -29,6 +29,7 @@ namespace ariel
         // iterators
         class Iterator;
         class AscendingIterator;
+        class PrimeIterator;
 
         MagicalContainer();
         // getters
@@ -64,8 +65,6 @@ namespace ariel
         //  GT, LT comparison (operator>, operatorn<)
         bool operator<(const Iterator &otherIt) const;
         bool operator>(const Iterator &otherIt) const;
-        // Assignment operator
-        // Iterator& operator=(Iterator otherIt);
 
         // getters
         Node *getIt() const;
@@ -84,6 +83,7 @@ namespace ariel
         virtual Iterator &end() const = 0;
     };
 
+    // ordered iterstor
     class MagicalContainer::AscendingIterator : public Iterator
     {
     private:
@@ -95,7 +95,7 @@ namespace ariel
         // AscendingIterator();
 
         // Copy constructor
-        // AscendingIterator(AscendingIterator const &otherAI);
+        AscendingIterator(AscendingIterator const &otherAI);
 
         // constructor with container
         AscendingIterator(const MagicalContainer &container);
@@ -115,51 +115,36 @@ namespace ariel
         AscendingIterator &end() const override;
     };
 
-    // class MagicalContainer::SideCrossIterator
-    // {
-    // private:
-    //     Node *it_;
-    //     MagicalContainer &container_;
-    //     // constructor with container & iterator
-    //     // AscendingIterator(MagicalContainer &container, list<Node *>::iterator it);
+    // primes iterstor
+    class MagicalContainer::PrimeIterator : public Iterator
+    {
+    private:
+        // constructor with container & iterator
+        PrimeIterator(const MagicalContainer &container, Node *it);
 
-    // public:
-    //     // Default constructor
-    //     // AscendingIterator();
+    public:
+        // Default constructor
+        // PrimeIterator();
 
-    //     // Copy constructor
-    //     SideCrossIterator(SideCrossIterator const &otherAI);
+        // Copy constructor
+        PrimeIterator(PrimeIterator const &otherP);
 
-    //     // constructor with container
-    //     SideCrossIterator(MagicalContainer &container);
+        // constructor with container
+        PrimeIterator(const MagicalContainer &container);
 
-    //     // Destructor
-    //     ~SideCrossIterator();
+        // Assignment operator
+        PrimeIterator operator=(PrimeIterator otherP);
 
-    //     // Assignment operator
-    //     SideCrossIterator operator=(SideCrossIterator otherAI);
+        // Destructor
+        ~PrimeIterator() {}
 
-    //     // Equality comparison(operator==)
-    //     bool operator==(SideCrossIterator otherAI);
-
-    //     // Inequality comparison(operator!=)
-    //     bool operator!=(SideCrossIterator otherAI);
-
-    //     //  GT, LT comparison (operator>, operatorn<)
-    //     bool operator>(SideCrossIterator otherAI);
-    //     bool operator<(SideCrossIterator otherAI);
-
-    //     // Dereference operator (operator*)
-    //     int operator*() const;
-
-    //     // Pre-increment operator (operator++)
-    //     SideCrossIterator &operator++();
-
-    //     // begin(type): Returns the appropriate iterator pointing to the first element of the container
-    //     MagicalContainer::SideCrossIterator begin() const;
-
-    //     // end(type): Returns the appropriate iterator pointing to the last element of the container.
-    //     MagicalContainer::SideCrossIterator end() const;
-    // };
+        // override methods
+        // Pre-increment operator (operator++)
+        PrimeIterator &operator++() override;
+        // begin(type): Returns the appropriate iterator pointing to the first element of the container
+        PrimeIterator &begin() const override;
+        // end(type): Returns the appropriate iterator pointing to the last element of the container
+        PrimeIterator &end() const override;
+    };
 
 }
