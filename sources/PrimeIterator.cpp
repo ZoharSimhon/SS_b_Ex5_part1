@@ -45,15 +45,13 @@ MagicalContainer::PrimeIterator &MagicalContainer::PrimeIterator::operator++()
 }
 
 // begin(type): Returns the appropriate iterator pointing to the first element of the container
-MagicalContainer::PrimeIterator &MagicalContainer::PrimeIterator::begin() const
+MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::begin() const
 {
-    PrimeIterator* beginIt = new PrimeIterator(this->getContainer());
-    return *beginIt;
+    return PrimeIterator(this->getContainer());
 }
 
 // end(type): Returns the appropriate iterator pointing to the last element of the container.
-MagicalContainer::PrimeIterator &MagicalContainer::PrimeIterator::end() const
+MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::end() const
 {
-    PrimeIterator* endIt = new PrimeIterator(this->getContainer(), nullptr);
-    return *endIt;
+    return PrimeIterator(this->getContainer(), nullptr);
 }

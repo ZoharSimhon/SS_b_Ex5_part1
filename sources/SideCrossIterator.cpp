@@ -90,15 +90,13 @@ MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operat
 }
 
 // begin(type): Returns the appropriate iterator pointing to the first element of the container
-MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::begin() const
+MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::begin() const
 {
-    SideCrossIterator *beginIt = new SideCrossIterator(this->getContainer());
-    return *beginIt;
+    return SideCrossIterator(this->getContainer());
 }
 
 // end(type): Returns the appropriate iterator pointing to the last element of the container.
-MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::end() const
+MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::end() const
 {
-    SideCrossIterator *endIt = new SideCrossIterator(this->getContainer(), nullptr);
-    return *endIt;
+    return SideCrossIterator(this->getContainer(), nullptr);
 }

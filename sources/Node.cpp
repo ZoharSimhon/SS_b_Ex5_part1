@@ -11,6 +11,8 @@ Node::Node(int data)
 // helper function
 bool Node::checkIsPrime()
 {
+    if (this->data_ < 2)
+        return false;
     for (int i = 2; i * i <= this->data_; i++)
     {
         if (this->data_ % i == 0)

@@ -43,6 +43,9 @@ bool MagicalContainer::Iterator::operator>(const Iterator &otherIt) const
     if (&this->container_ != &otherIt.container_)
         throw runtime_error("Can't compare iterators from different containers");
 
+    if (this->it_ == nullptr && otherIt.it_ == nullptr)
+        return false;
+
     if (this->it_->getData() > otherIt.it_->getData())
         return true;
 
@@ -50,6 +53,10 @@ bool MagicalContainer::Iterator::operator>(const Iterator &otherIt) const
 }
 bool MagicalContainer::Iterator::operator<(const Iterator &otherIt) const
 {
+
+    if (this->it_ == nullptr && otherIt.it_ == nullptr)
+        return false;
+
     return !(*this > otherIt || *this == otherIt);
 }
 

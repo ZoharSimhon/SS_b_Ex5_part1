@@ -12,8 +12,11 @@ MagicalContainer::~MagicalContainer()
     {
         if (!first)
             delete prev;
+        else
+            first = false;
         prev = iter;
     }
+    delete prev;
 }
 
 // helper functions

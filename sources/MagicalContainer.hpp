@@ -78,10 +78,6 @@ namespace ariel
         // virtual methods
         // Pre-increment operator (operator++)
         virtual Iterator &operator++() = 0;
-        // begin(type): Returns the appropriate iterator pointing to the first element of the container
-        virtual Iterator &begin() const = 0;
-        // end(type): Returns the appropriate iterator pointing to the last element of the container
-        virtual Iterator &end() const = 0;
     };
 
     // ordered iterstor
@@ -111,9 +107,9 @@ namespace ariel
         // Pre-increment operator (operator++)
         AscendingIterator &operator++() override;
         // begin(type): Returns the appropriate iterator pointing to the first element of the container
-        AscendingIterator &begin() const override;
+        AscendingIterator begin() const;
         // end(type): Returns the appropriate iterator pointing to the last element of the container
-        AscendingIterator &end() const override;
+        AscendingIterator end() const;
     };
 
     // primes iterstor
@@ -143,9 +139,9 @@ namespace ariel
         // Pre-increment operator (operator++)
         PrimeIterator &operator++() override;
         // begin(type): Returns the appropriate iterator pointing to the first element of the container
-        PrimeIterator &begin() const override;
+        PrimeIterator begin() const;
         // end(type): Returns the appropriate iterator pointing to the last element of the container
-        PrimeIterator &end() const override;
+        PrimeIterator end() const;
     };
 
     // SideCross iterstor
@@ -180,8 +176,8 @@ namespace ariel
         // Pre-increment operator (operator++)
         SideCrossIterator &operator++() override;
         // begin(type): Returns the appropriate iterator pointing to the first element of the container
-        SideCrossIterator &begin() const override;
+        SideCrossIterator begin() const;
         // end(type): Returns the appropriate iterator pointing to the last element of the container
-        SideCrossIterator &end() const override;
+        SideCrossIterator end() const;
     };
 }

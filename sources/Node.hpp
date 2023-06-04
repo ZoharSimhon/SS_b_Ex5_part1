@@ -36,6 +36,8 @@ namespace ariel
         void setNextPrime(Node *nextPrime);
         void setPrevPrime(Node *prevPrime);
 
+        // ~Node(){}
+
         bool operator==(const Node &other);
     };
 }

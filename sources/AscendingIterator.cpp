@@ -45,15 +45,13 @@ MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::operat
 }
 
 // begin(type): Returns the appropriate iterator pointing to the first element of the container
-MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::begin() const
+MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::begin() const
 {
-    AscendingIterator* beginIt = new AscendingIterator(this->getContainer());
-    return *beginIt;
+    return AscendingIterator(this->getContainer());
 }
 
 // end(type): Returns the appropriate iterator pointing to the last element of the container.
-MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::end() const
+MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::end() const
 {
-    AscendingIterator* endIt = new AscendingIterator(this->getContainer(), nullptr);
-    return *endIt;
+    return AscendingIterator(this->getContainer(), nullptr);
 }
