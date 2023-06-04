@@ -15,21 +15,21 @@ MagicalContainer::PrimeIterator::PrimeIterator(const MagicalContainer &container
     : Iterator(container, Prime, it) {}
 
 // Copy constructor
-MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer::PrimeIterator const &otherP)
-    : Iterator(otherP.getContainer(), Prime, otherP.getIt()) {}
+MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer::PrimeIterator const &otherPI)
+    : Iterator(otherPI.getContainer(), Prime, otherPI.getIt()) {}
 
 // Assignment operator
-MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::operator=(PrimeIterator otherP)
+MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::operator=(PrimeIterator otherPI)
 {
-    if (this->getType() != otherP.getType())
+    if (this->getType() != otherPI.getType())
         throw runtime_error("Can't assign different iterators");
 
-    if (this != &otherP)
+    if (this != &otherPI)
     {
-        if (&this->getContainer() != &otherP.getContainer())
+        if (&this->getContainer() != &otherPI.getContainer())
             throw runtime_error("Can't assign iterators from different containers");
 
-        this->setIt(otherP.getIt());
+        this->setIt(otherPI.getIt());
     }
     return *this;
 }

@@ -34,58 +34,78 @@ int main()
     auto it = ascIter.begin();
     auto it2 = ascIter.begin();
     ++it2;
-    if(it<it2){
-        cout <<"LT"<<endl;
+    if (it < it2)
+    {
+        cout << "LT" << endl;
     }
-    if(it2<it){
-        cout <<"NLT"<<endl;
-    }
-    ++it;
-        if(it==it2){
-        cout <<"EQ"<<endl;
-    }
-    if(it2!=it){
-        cout <<"NEq"<<endl;
+    if (it2 < it)
+    {
+        cout << "NLT" << endl;
     }
     ++it;
-    if(it>it2){
-        cout <<"GT"<<endl;
+    if (it == it2)
+    {
+        cout << "EQ" << endl;
     }
-    if(it2>it){
-        cout <<"NGT"<<endl;
+    if (it2 != it)
+    {
+        cout << "NEq" << endl;
+    }
+    ++it;
+    if (it > it2)
+    {
+        cout << "GT" << endl;
+    }
+    if (it2 > it)
+    {
+        cout << "NGT" << endl;
     }
 
     // Use PrimeIterator to display prime numbers only
     std::cout << "Prime numbers:\n";
     MagicalContainer::PrimeIterator primeIter(container);
-    for (auto it = primeIter.begin(); it != primeIter.end(); ++it) {
-        std::cout << *it << ' ';  // 2 3 17 
+    for (auto it = primeIter.begin(); it != primeIter.end(); ++it)
+    {
+        std::cout << *it << ' '; // 2 3 17
     }
     std::cout << std::endl;
 
     auto itp = primeIter.begin();
     auto itp2 = primeIter.begin();
     ++itp2;
-    if(itp<itp2){
-        cout <<"LT"<<endl;
+    if (itp < itp2)
+    {
+        cout << "LT" << endl;
     }
-    if(itp2<itp){
-        cout <<"NLT"<<endl;
-    }
-    ++itp;
-        if(itp==itp2){
-        cout <<"EQ"<<endl;
-    }
-    if(itp2!=itp){
-        cout <<"NEq"<<endl;
+    if (itp2 < itp)
+    {
+        cout << "NLT" << endl;
     }
     ++itp;
-    if(itp>itp2){
-        cout <<"GT"<<endl;
+    if (itp == itp2)
+    {
+        cout << "EQ" << endl;
     }
-    if(itp2>itp){
-        cout <<"NGT"<<endl;
+    if (itp2 != itp)
+    {
+        cout << "NEq" << endl;
+    }
+    ++itp;
+    if (itp > itp2)
+    {
+        cout << "GT" << endl;
+    }
+    if (itp2 > itp)
+    {
+        cout << "NGT" << endl;
     }
 
-
+    // Use DescendingIterator to display elements in descending order
+    std::cout << "Elements in cross order:\n";
+    MagicalContainer::SideCrossIterator crossIter(container);
+    for (auto it = crossIter.begin(); it != crossIter.end(); ++it)
+    {
+        std::cout << *it << ' '; // 2 25 3 17 9
+    }
+    std::cout << std::endl;
 }

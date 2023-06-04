@@ -1,99 +1,86 @@
-// #include "MagicalContainer.hpp"
-// using namespace ariel;
+#include "MagicalContainer.hpp"
+using namespace ariel;
 
-// // Default constructor
-// // MagicalContainer::SideCrossIterator::SideCrossIterator()
-// // {
-// // }
-
-// // constructor with container
-// MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container)
-//     : container_(container), it_(container.getFirstPrime()) {}
-
-// // constructor with container & iterator
-// // MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container, Node *it)
-// //     : container_(container), it_(it) {}
-
-// // Copy constructor
-// MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer::SideCrossIterator const &otherAI)
-//     : container_(otherAI.container_), it_(otherAI.it_) {}
-
-// // Destructor
-// MagicalContainer::SideCrossIterator::~SideCrossIterator() {}
-
-// // Assignment operator
-// MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::operator=(SideCrossIterator otherAI)
+// Default constructor
+// MagicalContainer::SideCrossIterator::SideCrossIterator()
 // {
-//     if (this != &otherAI)
-//     {
-//         if (&this->container_ != &otherAI.container_)
-//             throw runtime_error("Can't assign iterators from different containers");
-
-//         this->it_ = otherAI.it_;
-//     }
-//     return *this;
 // }
 
-// // Equality comparison(operator==)
-// bool MagicalContainer::SideCrossIterator::operator==(SideCrossIterator otherAI)
-// {
-//     if (&this->container_ != &otherAI.container_)
-//         throw runtime_error("Can't compare iterators from different containers");
+// constructor with container
+MagicalContainer::SideCrossIterator::SideCrossIterator(const MagicalContainer &container)
+    : Iterator(container, SideCross, container.first_), lastIt_(container.last_), counter_(0) {}
 
-//     if (this->it_ == otherAI.it_)
-//         return true;
+// constructor with container & iterator
+MagicalContainer::SideCrossIterator::SideCrossIterator(const MagicalContainer &container, Node *it)
+    : Iterator(container, SideCross, it), lastIt_(container.last_), counter_(container.size_) {}
 
-//     return false;
-// }
+// Copy constructor
+MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer::SideCrossIterator const &otherSCI)
+    : Iterator(otherSCI.getContainer(), SideCross, otherSCI.getIt()),
+      lastIt_(otherSCI.lastIt_), counter_(otherSCI.counter_) {}
 
-// // Inequality comparison(operator!=)
-// bool MagicalContainer::SideCrossIterator::operator!=(SideCrossIterator otherAI)
-// {
-//     return !(*this == otherAI);
-// }
+// Assignment operator
+MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::operator=(SideCrossIterator otherSCI)
+{
+    if (this->getType() != otherSCI.getType())
+        throw runtime_error("Can't assign different iterators");
 
-// //CHANGED!!!!!!!!!!
-// //  GT, LT comparison (operator>, operatorn<)
-// bool MagicalContainer::SideCrossIterator::operator>(SideCrossIterator otherAI)
-// {
-//     if (&this->container_ != &otherAI.container_)
-//         throw runtime_error("Can't compare iterators from different containers");
+    if (this != &otherSCI)
+    {
+        if (&this->getContainer() != &otherSCI.getContainer())
+            throw runtime_error("Can't assign iterators from different containers");
 
-//     // if ((*this->it_)->getData() > (*otherAI.it_)->getData())
-//     if (this->it_->getData() > otherAI.it_->getData())
-//         return true;
+        this->setIt(otherSCI.getIt());
+        this->counter_ = otherSCI.counter_;
+        this->lastIt_ = otherSCI.lastIt_;
+    }
+    return *this;
+}
 
-//     return false;
-// }
-// bool MagicalContainer::SideCrossIterator::operator<(SideCrossIterator otherAI)
-// {
-//     return !(*this > otherAI || *this == otherAI);
-// }
+// Dereference operator (operator*)
+int MagicalContainer::SideCrossIterator::operator*() const
+{
+    if (this->counter_ % 2 == 0)
+        return this->getIt()->getData();
+    else
+        return this->lastIt_->getData();
+}
 
-// // Dereference operator (operator*)
-// int MagicalContainer::SideCrossIterator::operator*() const
-// {
-//     return this->it_->getData();
-// }
+// Pre-increment operator (operator++)
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator++()
+{
+    if (this->getIt() == nullptr)
+        throw runtime_error("out of range");
 
-// // // Pre-increment operator (operator++)
-// // MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator++()
-// // {
-// //     if (*this->it_ == nullptr)
-// //         throw runtime_error("out of range");
+    // check if we have gone through all the elements
+    if (this->counter_ == this->getContainer().size_-1)
+    {
+        this->setIt(nullptr);
+        this->lastIt_ = nullptr;
+        return *this;
+    }
 
-// //     ++this->it_;
-// //     return *this;
-// // }
+    // moving forward
+    if (this->counter_ % 2 == 0)
+        this->setIt(this->getIt()->getNext());
+    // moving backword
+    else
+        this->lastIt_ = this->lastIt_->getPrev();
+    // increament the counter by 1
+    this->counter_++;
+    return *this;
+}
 
-// // // begin(type): Returns the appropriate iterator pointing to the first element of the container
-// // MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::begin() const
-// // {
-// //     return SideCrossIterator(this->container_);
-// // }
+// begin(type): Returns the appropriate iterator pointing to the first element of the container
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::begin() const
+{
+    SideCrossIterator *beginIt = new SideCrossIterator(this->getContainer());
+    return *beginIt;
+}
 
-// // // end(type): Returns the appropriate iterator pointing to the last element of the container.
-// // MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::end() const
-// // {
-// //     return SideCrossIterator(this->container_, this->container_.getEnd());
-// // }
+// end(type): Returns the appropriate iterator pointing to the last element of the container.
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::end() const
+{
+    SideCrossIterator *endIt = new SideCrossIterator(this->getContainer(), nullptr);
+    return *endIt;
+}

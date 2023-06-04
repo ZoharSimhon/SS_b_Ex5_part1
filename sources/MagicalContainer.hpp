@@ -30,6 +30,7 @@ namespace ariel
         class Iterator;
         class AscendingIterator;
         class PrimeIterator;
+        class SideCrossIterator;
 
         MagicalContainer();
         // getters
@@ -57,7 +58,7 @@ namespace ariel
         // constructor with container
         Iterator(const MagicalContainer &container, int type, Node *it);
         // Dereference operator (operator*)
-        int operator*() const;
+        virtual int operator*() const;
         // Equality comparison(operator==)
         bool operator==(const Iterator &otherIt) const;
         // Inequality comparison(operator!=)
@@ -127,13 +128,13 @@ namespace ariel
         // PrimeIterator();
 
         // Copy constructor
-        PrimeIterator(PrimeIterator const &otherP);
+        PrimeIterator(PrimeIterator const &otherPI);
 
         // constructor with container
         PrimeIterator(const MagicalContainer &container);
 
         // Assignment operator
-        PrimeIterator operator=(PrimeIterator otherP);
+        PrimeIterator operator=(PrimeIterator otherPI);
 
         // Destructor
         ~PrimeIterator() {}
@@ -147,4 +148,39 @@ namespace ariel
         PrimeIterator &end() const override;
     };
 
+    // SideCross iterstor
+    class MagicalContainer::SideCrossIterator : public Iterator
+    {
+    private:
+        Node *lastIt_;
+        size_t counter_;
+        // constructor with container & iterator
+        SideCrossIterator(const MagicalContainer &container, Node *it);
+
+    public:
+        // Default constructor
+        // SideCrossIterator();
+
+        // Copy constructor
+        SideCrossIterator(SideCrossIterator const &otherSCI);
+
+        // constructor with container
+        SideCrossIterator(const MagicalContainer &container);
+
+        // Assignment operator
+        SideCrossIterator operator=(SideCrossIterator otherSCI);
+
+        // Destructor
+        ~SideCrossIterator() {}
+
+        // override methods
+        // Dereference operator (operator*)
+        int operator*() const override;
+        // Pre-increment operator (operator++)
+        SideCrossIterator &operator++() override;
+        // begin(type): Returns the appropriate iterator pointing to the first element of the container
+        SideCrossIterator &begin() const override;
+        // end(type): Returns the appropriate iterator pointing to the last element of the container
+        SideCrossIterator &end() const override;
+    };
 }
