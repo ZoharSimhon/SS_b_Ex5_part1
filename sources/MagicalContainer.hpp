@@ -43,7 +43,13 @@ namespace ariel
         void removeElement(int number);
         void printMagicalContainer();
         void printPrimes();
+
+        // 5 related nethods
         ~MagicalContainer();
+        MagicalContainer(const MagicalContainer &other);
+        MagicalContainer(MagicalContainer &&other) noexcept;
+        MagicalContainer &operator=(MagicalContainer other);
+        MagicalContainer &operator=(MagicalContainer &&other) noexcept;
     };
 
     // abstract class
@@ -75,7 +81,13 @@ namespace ariel
         // setters
         void setIt(Node *iter);
 
-        // virtual methods
+        // 5 related nethods
+        virtual ~Iterator() = default;
+        Iterator(const Iterator &other);
+        Iterator(Iterator &&other) noexcept;
+        Iterator &operator=(const Iterator &other);
+        Iterator &operator=(Iterator &&other) noexcept;
+
         // Pre-increment operator (operator++)
         virtual Iterator &operator++() = 0;
     };
@@ -98,10 +110,14 @@ namespace ariel
         AscendingIterator(const MagicalContainer &container);
 
         // Assignment operator
-        AscendingIterator operator=(AscendingIterator otherAI);
+        AscendingIterator &operator=(AscendingIterator otherAI);
 
         // Destructor
-        ~AscendingIterator() {}
+        ~AscendingIterator() override = default;
+        // Move constructor
+        AscendingIterator(AscendingIterator &&other) noexcept = default;
+        // Move assignment operator
+        AscendingIterator &operator=(AscendingIterator &&other) noexcept;
 
         // override methods
         // Pre-increment operator (operator++)
@@ -130,10 +146,14 @@ namespace ariel
         PrimeIterator(const MagicalContainer &container);
 
         // Assignment operator
-        PrimeIterator operator=(PrimeIterator otherPI);
+        PrimeIterator &operator=(PrimeIterator otherPI);
 
         // Destructor
-        ~PrimeIterator() {}
+        ~PrimeIterator() override = default;
+        // Move constructor
+        PrimeIterator(PrimeIterator &&other) noexcept = default;
+        // Move assignment operator
+        PrimeIterator &operator=(PrimeIterator &&other) noexcept;
 
         // override methods
         // Pre-increment operator (operator++)
@@ -164,10 +184,14 @@ namespace ariel
         SideCrossIterator(const MagicalContainer &container);
 
         // Assignment operator
-        SideCrossIterator operator=(SideCrossIterator otherSCI);
+        SideCrossIterator &operator=(SideCrossIterator otherSCI);
 
         // Destructor
-        ~SideCrossIterator() {}
+        ~SideCrossIterator() override = default;
+        // Move constructor
+        SideCrossIterator(SideCrossIterator &&other) noexcept = default;
+        // Move assignment operator
+        SideCrossIterator &operator=(SideCrossIterator &&other) noexcept;
 
         // override methods
         virtual bool operator>(const SideCrossIterator &otherIt) const;

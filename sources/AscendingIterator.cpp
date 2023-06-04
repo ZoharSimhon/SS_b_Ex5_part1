@@ -19,7 +19,7 @@ MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer::Ascendi
     : Iterator(otherAI.getContainer(), Ascending, otherAI.getIt()) {}
 
 // Assignment operator
-MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::operator=(AscendingIterator otherAI)
+MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::operator=(AscendingIterator otherAI)
 {
     if (this->getType() != otherAI.getType())
         throw runtime_error("Can't assign different iterators");
@@ -31,6 +31,15 @@ MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::operato
 
         this->setIt(otherAI.getIt());
     }
+    return *this;
+}
+
+// Move assignment operator
+MagicalContainer::AscendingIterator &MagicalContainer::AscendingIterator::operator=(AscendingIterator &&otherAI) noexcept
+{
+    if (&this->getContainer() == &otherAI.getContainer())
+        this->setIt(otherAI.getIt());
+
     return *this;
 }
 

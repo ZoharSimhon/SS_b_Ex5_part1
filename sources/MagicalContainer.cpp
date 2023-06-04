@@ -4,21 +4,6 @@ using namespace ariel;
 MagicalContainer::MagicalContainer()
     : first_(nullptr), last_(nullptr), firstPrime_(nullptr), size_(0) {}
 
-MagicalContainer::~MagicalContainer()
-{
-    Node *prev = nullptr;
-    bool first = true;
-    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNext())
-    {
-        if (!first)
-            delete prev;
-        else
-            first = false;
-        prev = iter;
-    }
-    delete prev;
-}
-
 // helper functions
 void MagicalContainer::insertToPrimes(Node *prevPrime, Node *newNode)
 {
@@ -248,4 +233,56 @@ void MagicalContainer::printPrimes()
         cout << iter->getData() << ", ";
     }
     cout << "NULL" << endl;
+}
+
+// 5 related nethods
+MagicalContainer::~MagicalContainer()
+{
+    Node *prev = nullptr;
+    bool first = true;
+    for (Node *iter = this->first_; iter != nullptr; iter = iter->getNext())
+    {
+        if (!first)
+            delete prev;
+        else
+            first = false;
+        prev = iter;
+    }
+    delete prev;
+}
+MagicalContainer::MagicalContainer(const MagicalContainer &other)
+    : first_(nullptr), last_(nullptr), firstPrime_(nullptr), size_(0)
+{
+    // Copy all the element
+    for (Node *iter = other.first_; iter != nullptr; iter = iter->getNext())
+    {
+        this->addElement(iter->getData());
+    }
+}
+MagicalContainer::MagicalContainer(MagicalContainer &&other) noexcept
+    : first_(other.first_), last_(other.last_), firstPrime_(other.firstPrime_), size_(other.size_) {}
+MagicalContainer &MagicalContainer::operator=(MagicalContainer other)
+{
+    // first, intilize the data members
+    this->first_ = nullptr;
+    this->firstPrime_ = nullptr;
+    this->last_ = nullptr;
+    this->size_ = 0;
+
+    // Copy all the element
+    for (Node *iter = other.first_; iter != nullptr; iter = iter->getNext())
+    {
+        this->addElement(iter->getData());
+    }
+
+    return *this;
+}
+MagicalContainer &MagicalContainer::operator=(MagicalContainer &&other) noexcept
+{
+    this->first_ = other.first_;
+    this->firstPrime_ = other.firstPrime_;
+    this->last_ = other.last_;
+    this->size_ = other.size_;
+
+    return *this;
 }

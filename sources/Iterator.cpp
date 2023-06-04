@@ -79,3 +79,30 @@ void MagicalContainer::Iterator::setIt(Node *iter)
 {
     this->it_ = iter;
 }
+
+// 5 related nethods
+MagicalContainer::Iterator::Iterator(const Iterator &other)
+    : container_(other.container_), type_(other.type_), it_(other.it_) {}
+MagicalContainer::Iterator::Iterator(Iterator &&other) noexcept
+    : container_(other.container_), type_(other.type_), it_(other.it_){}
+    
+MagicalContainer::Iterator &MagicalContainer::Iterator::operator=(const Iterator &other)
+{
+    if (this->type_ != other.type_)
+        throw runtime_error("Can't assign different iterators");
+    if (&this->container_ != &other.container_)
+        throw runtime_error("Can't assign iterators from different containers");
+
+    this->it_ = other.it_;
+    return *this;
+}
+MagicalContainer::Iterator &MagicalContainer::Iterator::operator=(Iterator &&other) noexcept
+{
+    if (this->type_ != other.type_)
+        return *this;
+    if (&this->container_ != &other.container_)
+        return *this;
+
+    this->it_ = other.it_;
+    return *this;
+}

@@ -19,7 +19,7 @@ MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer::PrimeIterator c
     : Iterator(otherPI.getContainer(), Prime, otherPI.getIt()) {}
 
 // Assignment operator
-MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::operator=(PrimeIterator otherPI)
+MagicalContainer::PrimeIterator &MagicalContainer::PrimeIterator::operator=(PrimeIterator otherPI)
 {
     if (this->getType() != otherPI.getType())
         throw runtime_error("Can't assign different iterators");
@@ -31,6 +31,15 @@ MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::operator=(Prime
 
         this->setIt(otherPI.getIt());
     }
+    return *this;
+}
+
+// Move assignment operator
+MagicalContainer::PrimeIterator &MagicalContainer::PrimeIterator::operator=(PrimeIterator &&otherPI) noexcept
+{
+    if (&this->getContainer() == &otherPI.getContainer())
+        this->setIt(otherPI.getIt());
+
     return *this;
 }
 

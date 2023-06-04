@@ -20,7 +20,7 @@ MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer::SideCro
       lastIt_(otherSCI.lastIt_), counter_(otherSCI.counter_) {}
 
 // Assignment operator
-MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::operator=(SideCrossIterator otherSCI)
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator=(SideCrossIterator otherSCI)
 {
     if (this->getType() != otherSCI.getType())
         throw runtime_error("Can't assign different iterators");
@@ -34,6 +34,15 @@ MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::operato
         this->counter_ = otherSCI.counter_;
         this->lastIt_ = otherSCI.lastIt_;
     }
+    return *this;
+}
+
+// Move assignment operator
+MagicalContainer::SideCrossIterator &MagicalContainer::SideCrossIterator::operator=(SideCrossIterator &&otherSCI) noexcept
+{
+    if (&this->getContainer() == &otherSCI.getContainer())
+        this->setIt(otherSCI.getIt());
+
     return *this;
 }
 
