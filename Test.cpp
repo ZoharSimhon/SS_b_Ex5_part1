@@ -186,10 +186,11 @@ TEST_SUITE("Class SideCrossIterator")
         CHECK(crossIter2 > crossIter1);
 
         // less then
-        // CHECK(crossIter1 < crossIter2);
         CHECK(!(crossIter2 < crossIter1));
         ++crossIter1; // increment in 2
         CHECK(!(crossIter1 < crossIter2));
+        ++crossIter1; // increment in 3
+        CHECK(crossIter2 < crossIter1);
     }
 }
 
@@ -269,29 +270,29 @@ TEST_SUITE("non-valid comparisons")
         MagicalContainer::AscendingIterator ascIter(container);
         MagicalContainer::SideCrossIterator crossIter(container);
         MagicalContainer::PrimeIterator primeIter(container);
+        bool throwEror;
 
         // equality - check throw even that their value equals to 2
-        // CHECK_THROWS(ascIter == crossIter);
-        // CHECK_THROWS(ascIter == primeIter);
-        // CHECK_THROWS(primeIter == crossIter);
+        CHECK_THROWS(throwEror = (ascIter == crossIter));
+        CHECK_THROWS(throwEror = (ascIter == primeIter));
+        CHECK_THROWS(throwEror = (primeIter == crossIter));
 
-        // // inequality - check throw even that their value isn't the same
-        // ++ascIter;   // equals to 12
-        // ++crossIter; // equals to 29
-        // // primeIter equals to 2
-        // CHECK_THROWS(ascIter != crossIter);
-        // CHECK_THROWS(ascIter != primeIter);
-        // CHECK_THROWS(primeIter != crossIter);
+        // inequality - check throw even that their value isn't the same
+        ++ascIter;   // equals to 12
+        ++crossIter; // equals to 29
+        // primeIter equals to 2
+        CHECK_THROWS(throwEror = (ascIter != crossIter));
+        CHECK_THROWS(throwEror = (ascIter != primeIter));
+        CHECK_THROWS(throwEror = (primeIter != crossIter));
 
-        // // greater then
-        // CHECK_THROWS(crossIter > ascIter);   // correct
-        // CHECK_THROWS(ascIter > primeIter);   // correct
-        // CHECK_THROWS(primeIter > crossIter); // not correct
+        // greater then
+        CHECK_THROWS(throwEror = (ascIter > primeIter)); // correct
+        CHECK_THROWS(throwEror = (primeIter > ascIter)); // not correct
 
         // // less then
-        // CHECK_THROWS(ascIter < crossIter);   // correct
-        // CHECK_THROWS(primeIter < ascIter);   // correct
-        // CHECK_THROWS(crossIter < primeIter); // not correct
+        CHECK_THROWS(throwEror = (ascIter < crossIter));   // correct
+        CHECK_THROWS(throwEror = (primeIter < ascIter));   // correct
+        CHECK_THROWS(throwEror = (crossIter < primeIter)); // not correct
     }
 
     TEST_CASE("Comparison by different containers in AscendingIterator")
@@ -342,20 +343,21 @@ TEST_SUITE("non-valid comparisons")
 
         MagicalContainer::SideCrossIterator crossIter1(container1);
         MagicalContainer::SideCrossIterator crossIter2(container2);
+        bool throwEror;
 
         // equality - check throw even that their value equals to 2
-        // CHECK_THROWS(crossIter1 == crossIter2); // correct
+        CHECK_THROWS(throwEror = (crossIter1 == crossIter2)); // correct
 
         // inequality - check throw even that their value isn't the same
         ++crossIter1; // equals to 29
         // crossIter2 equals to 2
-        // CHECK_THROWS(crossIter1 != crossIter2); // correct
+        CHECK_THROWS(throwEror = (crossIter1 != crossIter2)); // correct
 
         // greater then
-        // CHECK_THROWS(crossIter1 > crossIter2); // correct
+        CHECK_THROWS(throwEror = (crossIter1 > crossIter2)); // correct
 
         // less then
-        // CHECK_THROWS(crossIter1 < crossIter2); // not correct
+        CHECK_THROWS(throwEror = (crossIter1 < crossIter2)); // not correct
     }
 
     TEST_CASE("Comparison by different containers in PrimeIterator")
@@ -374,19 +376,20 @@ TEST_SUITE("non-valid comparisons")
 
         MagicalContainer::PrimeIterator primeIter1(container1);
         MagicalContainer::PrimeIterator primeIter2(container2);
+        bool throwEror;
 
         // equality - check throw even that their value equals to 2
-        // CHECK_THROWS(primeIter1 == primeIter2); // correct
+        CHECK_THROWS(throwEror = (primeIter1 == primeIter2)); // correct
 
         // inequality - check throw even that their value isn't the same
         ++primeIter1; // equals to 29
         // primeIter2 equals to 2
-        // CHECK_THROWS(primeIter1 != primeIter2); // correct
+        CHECK_THROWS(throwEror = (primeIter1 != primeIter2)); // correct
 
         // greater then
-        // CHECK_THROWS(primeIter1 > primeIter2); // correct
+        CHECK_THROWS(throwEror = (primeIter1 > primeIter2)); // correct
 
         // less then
-        // CHECK_THROWS(primeIter1 < primeIter2); // not correct
+        CHECK_THROWS(throwEror = (primeIter1 < primeIter2)); // not correct
     }
 }
